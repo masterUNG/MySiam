@@ -107,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Welcome " + loginStrings1[1],
                         Toast.LENGTH_SHORT).show();
             } else {
-
+                myAlert.myDialog(getResources().getString(R.string.titlePasswordFalse),
+                        getResources().getString(R.string.messagePasswordFalse));
             }
 
 
