@@ -71,7 +71,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d("SiamV2", "Lat ==> " + latADouble);
         Log.d("SiamV2", "Lng ==> " + lngADouble);
 
-        CheckAndEditLocation();
+
 
 
     }
@@ -96,8 +96,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 if (userStrings[1].equals(jsonObject.getString("Name"))) {
                     b = false;
+                } else {
+                    myCreateMarker(jsonObject.getString("Name"),
+                            new LatLng(Double.parseDouble(jsonObject.getString("Lat")),
+                                    Double.parseDouble(jsonObject.getString("Lng"))),
+                            mkInts[1]);
                 }
-            }
+
+
+            }   // for
 
             if (b) {
                 //No Name
@@ -207,6 +214,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         myCreateMarker(userStrings[1], userLatLng, mkInts[0]);
 
+        CheckAndEditLocation();
 
     }   // onMapReady
 
