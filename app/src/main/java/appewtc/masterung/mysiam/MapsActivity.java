@@ -111,6 +111,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
             AddAndEditLocation addAndEditLocation = new AddAndEditLocation(MapsActivity.this);
+            addAndEditLocation.execute(userStrings[1],
+                    Double.toString(latADouble),
+                    Double.toString(lngADouble),
+                    urlPHP);
+
+            Log.d(tag, "Result ==> " + addAndEditLocation.get());
+
 
 
         } catch (Exception e) {
