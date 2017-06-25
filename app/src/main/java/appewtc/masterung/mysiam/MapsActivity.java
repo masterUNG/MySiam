@@ -13,6 +13,8 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.akexorcist.googledirection.DirectionCallback;
+import com.akexorcist.googledirection.GoogleDirection;
+import com.akexorcist.googledirection.constant.TransportMode;
 import com.akexorcist.googledirection.model.Direction;
 import com.akexorcist.googledirection.util.DirectionConverter;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -231,6 +233,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.d("SiamV4", "Marker Lat ==> " + marker.getPosition().latitude);
                 Log.d("SiamV4", "Marker Lng ==> " + marker.getPosition().longitude);
 
+                GoogleDirection.withServerKey("AIzaSyAloVYlvZeXa7A86bqofs_0ytQ4Pz-CBaQ")
+                        .from(new LatLng(13.718072, 100.453234))
+                        .to(marker.getPosition())
+                        .transportMode(TransportMode.DRIVING)
+                        .execute(MapsActivity.this);
+
 
                 return true;
 
@@ -249,13 +257,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onDirectionSuccess(Direction direction, String rawBody) {
 
-        ArrayList<LatLng> arrayList = direction.getRouteList()
-                .get(0)
-                .getLegList()
-                .get(0)
-                .getDirectionPoint();
-        mMap.addPolyline(DirectionConverter
-                .createPolyline(MapsActivity.this, arrayList, 5, Color.RED));
+        if (direction.isOK()) {
+            ArrayList<LatLng> arrayList = direction.getRouteList()
+                    .get(0)
+                    .getLegList()
+                    .get(0)
+                    .getDirectionPoint();
+            mMap.addPolyline(DirectionConverter
+                    .createPolyline(MapsActivity.this, arrayList, 5, Color.RED));
+        }
 
     }
 
