@@ -17,6 +17,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -215,6 +216,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         myCreateMarker(userStrings[1], userLatLng, mkInts[0]);
 
         CheckAndEditLocation();
+
+        //Click Marker
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+
+                Log.d("SiamV4", "Marker Lat ==> " + marker.getPosition().latitude);
+                Log.d("SiamV4", "Marker Lng ==> " + marker.getPosition().longitude);
+
+
+                return true;
+
+            }
+        });
 
     }   // onMapReady
 
