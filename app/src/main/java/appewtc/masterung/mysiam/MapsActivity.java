@@ -19,6 +19,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -77,6 +80,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         MyConstant myConstant = new MyConstant();
         String tag = "SiamV3";
+        boolean b = true;
 
         try {
 
@@ -85,6 +89,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             getAllData.execute(myConstant.getUrlGetAllLocation());
             String strJSON = getAllData.get();
             Log.d(tag, "JSON ==> " + strJSON);
+
+            JSONArray jsonArray = new JSONArray(strJSON);
+            for (int i=0; i<jsonArray.length();i+=1) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                if (userStrings[1].equals(jsonObject.getString("Name"))) {
+                    b = false;
+                }
+            }
+
+            if (b) {
+                //No Name
+                Log.d(tag, "No Name");
+            } else {
+                //Have Name
+                Log.d(tag, "Have Name");
+            }
 
 
 
