@@ -38,6 +38,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setUp();
 
 
+
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         createFragment();
 
@@ -66,6 +68,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d("SiamV2", "Lat ==> " + latADouble);
         Log.d("SiamV2", "Lng ==> " + lngADouble);
 
+        CheckAndEditLocation();
+
+
+    }
+
+    private void CheckAndEditLocation() {
+
+        MyConstant myConstant = new MyConstant();
+        String tag = "SiamV3";
+
+        try {
+
+            //Check
+            GetAllData getAllData = new GetAllData(MapsActivity.this);
+            getAllData.execute(myConstant.getUrlGetAllLocation());
+            String strJSON = getAllData.get();
+            Log.d(tag, "JSON ==> " + strJSON);
+
+
+
+
+        } catch (Exception e) {
+            Log.d(tag, "e check ==> " + e.toString());
+        }
 
     }
 
