@@ -2,6 +2,7 @@ package appewtc.masterung.mysiam;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -11,6 +12,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
+import com.akexorcist.googledirection.DirectionCallback;
+import com.akexorcist.googledirection.model.Direction;
+import com.akexorcist.googledirection.util.DirectionConverter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -23,7 +27,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+import java.util.ArrayList;
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, DirectionCallback {
 
     private GoogleMap mMap;
     private LocationManager locationManager;
@@ -240,4 +246,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         .icon(BitmapDescriptorFactory.fromResource(intImage)));
     }
 
+    @Override
+    public void onDirectionSuccess(Direction direction, String rawBody) {
+
+        ArrayList<LatLng> arrayList = direction.getRouteList()
+                .get(0)
+                .getLegList()
+                .get(0)
+                .getDirectionPoint();
+        mMap.addPolyline(DirectionConverter
+                .createPolyline(MapsActivity.this, arrayList, 5, Color.RED));
+
+    }
+
+    @Override
+    public void onDirectionFailure(Throwable t) {
+
+    }
 }   // Main Class
