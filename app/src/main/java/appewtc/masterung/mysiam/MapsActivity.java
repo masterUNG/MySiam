@@ -81,6 +81,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         MyConstant myConstant = new MyConstant();
         String tag = "SiamV3";
         boolean b = true;
+        String urlPHP = null;
 
         try {
 
@@ -101,12 +102,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (b) {
                 //No Name
                 Log.d(tag, "No Name");
+                urlPHP = myConstant.getUrlAddLocation();
+
             } else {
                 //Have Name
                 Log.d(tag, "Have Name");
+                urlPHP = myConstant.getUrlEditLocation();
             }
 
-
+            AddAndEditLocation addAndEditLocation = new AddAndEditLocation(MapsActivity.this);
 
 
         } catch (Exception e) {
@@ -114,6 +118,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
     }
+
+
 
     @Override
     protected void onStop() {
